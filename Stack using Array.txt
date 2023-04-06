@@ -1,0 +1,96 @@
+#include <iostream>
+#include <chrono>
+using namespace std;
+using namespace std::chrono;
+
+
+int top = -1;
+int n;
+
+void push(int stack[], int element){
+  top++;
+  if(top>=n){
+    cout<<"Stack Overflow";
+  }
+  else{
+    stack[top] = element;
+  }
+}
+
+void pop(int stack[]){
+  if(top<0){
+    cout<<"Stack Underflow";
+  }
+  else{
+    top--;
+    cout<<stack[top+1]<<endl;
+  }
+}
+
+void isEmpty(int stack[]){
+  if(top<0){
+    cout<<"Stack is empty";
+  }
+  else{
+    cout<<"Stack is not empty";
+  }
+}
+
+void isFull(int stack[]){
+  if(top+1>=n){
+    cout<<"Stack is full";
+  }
+  else{
+    cout<<"Stack is not full";
+  }
+}
+
+void StackTop(int stack[]){
+  cout<<stack[top];
+}
+
+void Display(int stack[]){
+  for(int i = 0 ; i < top+1; i++){
+      cout<< stack[i]<<" ";
+  }
+  cout<<endl;
+}
+
+int main() {
+ 
+  cout<<"Enter the size of the stack : ";
+  cin>> n;
+  int stack[n];
+
+  auto start = high_resolution_clock::now();
+  
+  push(stack,8);
+  push(stack,10);
+  push(stack,5);
+  push(stack,11);
+  push(stack,15);
+  push(stack,23);
+  push(stack,6);
+  push(stack,18);
+  push(stack,20);
+  push(stack,17);
+  Display(stack);
+  pop(stack);
+  pop(stack);
+  pop(stack);
+  pop(stack);
+  pop(stack);
+  Display(stack);
+  push(stack,4);
+  push(stack,30);
+  push(stack,3);
+  push(stack,1);
+  Display(stack);
+
+  auto stop = high_resolution_clock::now();
+  auto duration = duration_cast<microseconds>(stop - start);
+ 
+  cout << "Time : "<< duration.count() << " microseconds" << endl;
+ 
+  return 0;
+}
