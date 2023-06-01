@@ -1,0 +1,73 @@
+#include <iostream>
+
+using namespace std;
+
+#define V 6
+
+int minTime(int time[], bool visited[])
+{
+	int min = INT_MAX;
+    int min_index;
+
+	for (int v = 0; v < V; v++)
+		if (visited[v] == false && time[v] <= min)
+			min = time[v], min_index = v;
+
+	return min_index;
+}
+
+void print(int time[], int source)
+{
+    float total = 0.0;
+	for (int i = 0; i < V; i++){
+		cout <<"City["<<source << "] to city["<<i<<"]  - "<< time[i] << endl;
+        total= total + time[i];
+    }
+    cout<<endl;
+    cout<< "Average = "<<total/(V-1) << endl;
+    cout<<endl;
+
+}
+
+void dijkstra(int graph[V][V], int source)
+{
+	int time[V]; 
+	bool visited[V];
+	for (int i = 0; i < V; i++){
+		time[i] = INT_MAX, visited[i] = false;
+    }
+
+	time[source] = 0;
+
+	for (int i = 0; i < V - 1; i++) {
+
+		int u = minTime(time, visited);
+
+		visited[u] = true;
+
+		for (int v = 0; v < V; v++)
+
+			if (!visited[v] && graph[u][v]
+				&& time[u] != INT_MAX
+				&& time[u] + graph[u][v] < time[v])
+				time[v] = time[u] + graph[u][v];
+	}
+
+	print(time,source);
+}
+
+int main()
+{
+
+	int graph[V][V] = { {0, 10, 0, 0, 15, 5},
+                        {10, 0, 10, 30, 0, 0},
+                        {0, 10, 0, 12, 5, 0},
+                        {0, 30, 12, 0, 0, 20},
+                        {15, 0, 5, 0, 0, 0},
+                        {5, 0, 0, 20, 0, 0}};
+
+	dijkstra(graph, 0);
+    
+
+	return 0;
+}
