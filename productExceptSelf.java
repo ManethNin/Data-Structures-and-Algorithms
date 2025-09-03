@@ -5,7 +5,7 @@ public class test1 {
         System.out.println("Hello World!!!");
         Solution sol = new Solution();
 
-        int[] arr = {-1,1,0,-3,3};
+        int[] arr = {-1,1,4,-3,3};
         int[] answer = sol.productExceptSelf(arr);
         for(int i : answer){
             System.out.println(i);
